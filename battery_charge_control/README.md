@@ -22,3 +22,8 @@ It goes without saying the communication protocol implemented here is http, but 
 #### Challenges faced
 This is not really a challenge but I would desire to send date through to the Pico W to turn on or off the sockets whilst using the async server but I'm having challenges sending data to the Pico W whilst using the async server.
 
+##### Things to note when cloning
+The following will have to be edited when cloning this project
+- Country code
+- SSID and Password credentials for your wifi or hotspot
+- IP address(es) of device(s)
