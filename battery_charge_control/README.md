@@ -14,6 +14,10 @@ This implementation requires you to have
 
 It goes without saying the communication protocol implemented here is http, but this can be changed to as per your liking
 
+To view the web page one needs to know the Pico W's ip address. This will be displayed on the console when you run the file on the Pico W from an editor such as Thonny.
+
+Navigate as **http://192.168.pico_w_ip**
+
 #### Full build
 <img src="imgs/img1.jpg" alt="build image" width="500" height="500">
 <img src="imgs/img2.jpg" alt="build image" width="500" height="500">
