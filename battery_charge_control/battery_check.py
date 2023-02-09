@@ -148,8 +148,9 @@ async def main():
             # print(e)
             device_dict[current_device]["device_status"] = 'not available'
             
-        device_dict[current_device]["battery_percent"] = battery_percent
-        device_dict[current_device]["time_checked"] = get_time()
+        if device_dict[current_device]["device_status"] != 'not available':            
+            device_dict[current_device]["battery_percent"] = battery_percent
+            device_dict[current_device]["time_checked"] = get_time()
         await asyncio.sleep(5)
         current_device = change_device(current_device, list(device_dict.keys()))
 
