@@ -97,24 +97,19 @@ def power_decision(current_device, battery_percent, power_plugged):
     if device_dict[current_device]["device_status"] == 'charging' and not power_plugged:
         devices[current_device].off()
         device_dict[current_device]["device_status"] = 'discharging'
-        device_dict[current_device]["time_checked"] = get_time()
     
     if device_dict[current_device]["device_status"] == 'not available' and power_plugged:
         device_dict[current_device]["device_status"] = 'charging'
-        device_dict[current_device]["time_checked"] = get_time()
     elif device_dict[current_device]["device_status"] == 'not available' and not power_plugged:
         device_dict[current_device]["device_status"] = 'discharging'
-        device_dict[current_device]["time_checked"] = get_time()
     
     if device_dict[current_device]["device_status"] == 'charging' and battery_percent > 80:
         devices[current_device].off()
         device_dict[current_device]["device_status"] = 'discharging'
-        device_dict[current_device]["time_checked"] = get_time()
         
     elif device_dict[current_device]["device_status"] == 'discharging' and battery_percent < 20:
         devices[current_device].on()
         device_dict[current_device]["device_status"] = 'charging'
-        device_dict[current_device]["time_checked"] = get_time()
     
     return ''        
 
@@ -152,11 +147,10 @@ async def main():
         except Exception as e:
             # print(e)
             device_dict[current_device]["device_status"] = 'not available'
-            await asyncio.sleep(5)
             
-        await asyncio.sleep(5)
         device_dict[current_device]["battery_percent"] = battery_percent
         device_dict[current_device]["time_checked"] = get_time()
+        await asyncio.sleep(5)
         current_device = change_device(current_device, list(device_dict.keys()))
 
 
