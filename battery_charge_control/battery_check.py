@@ -6,11 +6,12 @@ import urequests
 import time
 from time import sleep
 import machine
-from machine import Pin
+from machine import Pin, WDT
 import ntptime
 import uasyncio as asyncio
 
 rp2.country('KE')
+wdt = WDT(timeout=8000)
 wlan = network.WLAN(network.STA_IF)
 credentials = {
     'ssid': 'A Network',
@@ -46,6 +47,22 @@ def connect_to_wifi():
         print(f'IP: {status[0]}')
 
 
+# sleep while still resetting watchdog timer
+async def async_sleep(sleep_s):
+    max_sleep = 7
+    sleep_intervals = sleep_s // max_sleep
+    sleep_rem = sleep_s % max_sleep
+    
+    i = sleep_intervals
+    while i > 0:
+        await asyncio.sleep(max_sleep)
+        wdt.feed()
+        i -= 1
+    
+    await asyncio.sleep(sleep_rem)
+    wdt.feed()
+
+
 connect_to_wifi()
 ntptime.settime()
 
@@ -72,13 +89,6 @@ device_dict = {
         'time_checked': 'not available',
     }
 }
-
-# function to load in html page
-def get_html(html_name):
-    with open(html_name, 'r') as file:
-        html = file.read()
-    
-    return html
 
 
 def get_time():
@@ -146,12 +156,14 @@ async def main():
         
         except Exception as e:
             # print(e)
+            wdt.feed()
             device_dict[current_device]["device_status"] = 'not available'
             
         if device_dict[current_device]["device_status"] != 'not available':            
             device_dict[current_device]["battery_percent"] = battery_percent
             device_dict[current_device]["time_checked"] = get_time()
-        await asyncio.sleep(5)
+
+        asyncio.run(async_sleep(5))
         current_device = change_device(current_device, list(device_dict.keys()))
 
 
