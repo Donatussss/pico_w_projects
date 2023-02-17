@@ -26,6 +26,7 @@ def connect_to_wifi():
     # wait for connection with 5 second timeout
     timeout = 10
     while timeout > 0:
+        wdt.feed()
         if wlan.status() < 0 or wlan.status() >= 3:
             break
         timeout -= 1
