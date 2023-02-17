@@ -138,7 +138,7 @@ async def main():
 
     while True:
         try:
-            r = urequests.get(f'http://{device_dict[current_device]["device_ip"]}:5000/battery')
+            r = urequests.get(f'http://{device_dict[current_device]["device_ip"]}:5000/battery', timeout=5)
             params = r.text
             r.close()
             battery_percent, power_plugged = params.split(" ")
