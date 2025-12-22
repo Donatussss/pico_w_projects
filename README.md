@@ -1,1 +1,1 @@
-## This repo holds projects built on the Raspberry Pi Pico W
+## This repo holds projects built on the Raspberry Pi Pico(2) W
