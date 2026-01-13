@@ -44,7 +44,7 @@ if key is not None:
                 with open(store_json_path, 'w') as f:
                     json.dump(store_json, f)
             elif f_code == 'd': # delete
-                delete_record(store_json, f)
+                delete_record(store_json)
                 with open(store_json_path, 'w') as f:
                     json.dump(store_json, f)
             elif f_code == 'h': # help 
