@@ -50,7 +50,7 @@ def delete_record(input_json):
     site_pid = input('Enter site or password identifier: ')
 
     if site_pid in input_json.keys():
-        confirmation = input(f'Are you sure you want to delete record for {site_pid}(y/n)? ')
+        confirmation = input(f'Are you sure you want to delete record for {site_pid}, (y/n)? ')
 
         if confirmation.lower() == 'y':
             del input_json[site_pid]
@@ -84,7 +84,7 @@ def email_setup(base_path=None):
                 store_json = json.load(f)
 
         else:
-            create = input(f'No store found for {email}. Create one? ')
+            create = input(f'No store found for {email}. Create one, (y/n)? ')
 
             if create.lower() == 'y':
                 store_json = {}
