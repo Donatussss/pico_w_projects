@@ -57,7 +57,9 @@ if key is not None:
                 print('r: read record')
                 print('s: switch email')
             elif f_code == 'l': # list
-                print(f'Available site_pids: {list(store_json.keys())}')
+                temp_pids = list(store_json.keys())
+                temp_pids.sort()
+                print(f'Available site_pids: {temp_pids}')
             elif f_code == 'q': # quit
                 break
             elif f_code == 'r': # read
